@@ -2,32 +2,85 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Element Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Element Master</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Element Quiz</h1>
-        
-        <div id="menu" class="screen active">
-            <button onclick="startGame('60')">Mode: 1-60</button>
-            <button onclick="startGame('all')">Mode: All</button>
-            <button onclick="startGame('review')" id="review-btn">Review Mistakes</button>
-            <p id="stats"></p>
+    <div class="background-gradient"></div>
+    
+    <div class="app-container">
+        <div id="menu-screen" class="screen active">
+            <header>
+                <h1>Element Master</h1>
+                <p>Periodic Table Memorization</p>
+            </header>
+            
+            <div class="card-group">
+                <h2>Select Range</h2>
+                <div class="segmented-control">
+                    <button class="segment active" onclick="setRange('60', this)">1 - 60</button>
+                    <button class="segment" onclick="setRange('all', this)">All (118)</button>
+                    <button class="segment" onclick="setRange('mistakes', this)">Mistakes</button>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="apple-btn primary" onclick="startMode('study')">
+                    <span class="icon">📖</span> Study Mode
+                </button>
+                <button class="apple-btn secondary" onclick="startMode('quiz')">
+                    <span class="icon">✍️</span> Quiz Mode
+                </button>
+            </div>
+            <p id="stats-display" class="stats-text"></p>
         </div>
 
-        <div id="game" class="screen">
-            <div class="card">
-                <div class="number" id="atomic-number"></div>
-                <div class="symbol" id="element-symbol"></div>
+        <div id="study-screen" class="screen">
+            <div class="header-bar">
+                <button class="back-btn" onclick="goHome()">✕</button>
+                <span id="study-progress">1 / 60</span>
             </div>
-            <input type="text" id="answer-input" placeholder="English Name (e.g. Hydrogen)" autocomplete="off">
-            <button onclick="checkAnswer()">Answer</button>
-            <div id="message"></div>
-            <button onclick="returnToMenu()" class="secondary-btn">Back to Menu</button>
+            
+            <div class="flashcard-container" onclick="flipCard()">
+                <div class="flashcard" id="flashcard">
+                    <div class="front">
+                        <span class="atomic-number" id="study-num">1</span>
+                        <span class="element-symbol" id="study-sym">H</span>
+                        <span class="tap-hint">Tap to flip</span>
+                    </div>
+                    <div class="back">
+                        <span class="element-name" id="study-name">Hydrogen</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-bar">
+                <button class="circle-btn" onclick="nextCard(-1)">←</button>
+                <button class="circle-btn" onclick="nextCard(1)">→</button>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="screen">
+            <div class="header-bar">
+                <button class="back-btn" onclick="goHome()">✕</button>
+                <span id="quiz-progress">Score: 0</span>
+            </div>
+
+            <div class="quiz-card">
+                <span class="atomic-number" id="quiz-num">1</span>
+                <span class="element-symbol" id="quiz-sym">H</span>
+            </div>
+
+            <div class="input-area">
+                <input type="text" id="quiz-input" placeholder="Type English Name" autocomplete="off" autocapitalize="off">
+                <button id="quiz-submit" onclick="checkAnswer()">Submit</button>
+            </div>
+            
+            <div id="quiz-feedback" class="feedback"></div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
