@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Element Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Element Quiz</h1>
+        
+        <div id="menu" class="screen active">
+            <button onclick="startGame('60')">Mode: 1-60</button>
+            <button onclick="startGame('all')">Mode: All</button>
+            <button onclick="startGame('review')" id="review-btn">Review Mistakes</button>
+            <p id="stats"></p>
+        </div>
+
+        <div id="game" class="screen">
+            <div class="card">
+                <div class="number" id="atomic-number"></div>
+                <div class="symbol" id="element-symbol"></div>
+            </div>
+            <input type="text" id="answer-input" placeholder="English Name (e.g. Hydrogen)" autocomplete="off">
+            <button onclick="checkAnswer()">Answer</button>
+            <div id="message"></div>
+            <button onclick="returnToMenu()" class="secondary-btn">Back to Menu</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
